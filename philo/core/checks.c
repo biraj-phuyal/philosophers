@@ -6,26 +6,27 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 00:04:57 by biphuyal          #+#    #+#             */
-/*   Updated: 2025/11/06 00:12:54 by biphuyal         ###   ########.fr       */
+/*   Updated: 2025/11/09 20:52:03 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-bool	check_positiveness(char **argv)
+bool	check_positiveness(int args, char **argv)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 1;
-	while(argv[j])
+	while(j < args)
 	{
+		i = 0;
 		while (argv[j][i])
 		{
-			if (argv[j][i] < 1)
+			if (argv[j][i] < '1')
 			{
-				write(1, "Arguments must be above 0\n", 24);
+				write(1, "Arguments must be above 0\n", 26);
 				return (false);
 			}
 			i++;
@@ -43,4 +44,13 @@ bool	check_args(int args)
 			return (false);
 	}
 	return(true);
+}
+
+bool	check_all_posibility(int args, char **argv)
+{
+	if (!check_positiveness(args, argv))
+		return (false);
+	if (!check_args(args))
+		return (false);
+	return (true);
 }

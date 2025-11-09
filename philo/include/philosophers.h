@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2025/11/06 00:13:03 by biphuyal         ###   ########.fr       */
+/*   Updated: 2025/11/09 20:36:39 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct	s_philosophers
 	pthread_t thread;
 }	t_philosophers;
 
-bool	check_args(int args);
-bool	check_positiveness(char **argv);
+bool	check_all_posibility(int args, char **argv);
 
 #endif
