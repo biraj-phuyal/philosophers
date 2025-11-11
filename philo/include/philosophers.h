@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2025/11/09 20:36:39 by biphuyal         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:15:40 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@
 # include <stdbool.h>
 # include <pthread.h>
 
+typedef long long t_ms;
+
 typedef struct	s_philosophers
 {
-	void	*fork;
-	void	*eat;
-	void	*sleeps;
-	void	*thinks;
-	void	*time_to_eat;
-	void	*time_to_sleep;
-	void	*time_to_think;
-	pthread_t thread;
+	void		*fork;
+	void		*eat;
+	void		*sleeps;
+	void		*thinks;
+	void		*time_to_eat;
+	void		*time_to_sleep;
+	void		*time_to_think;
+	pthread_t	thread;
 }	t_philosophers;
 
 bool	check_all_posibility(int args, char **argv);
