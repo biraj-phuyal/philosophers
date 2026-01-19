@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 00:04:57 by biphuyal          #+#    #+#             */
-/*   Updated: 2025/11/09 20:52:03 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/01/19 17:05:00 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	check_positiveness(int args, char **argv)
 		i = 0;
 		while (argv[j][i])
 		{
-			if (argv[j][i] < '1')
+			if (argv[j][i] >= '1' && argv[j][i] <= '9')
 			{
 				write(1, "Arguments must be above 0\n", 26);
 				return (false);
@@ -38,9 +38,9 @@ bool	check_positiveness(int args, char **argv)
 
 bool	check_args(int args)
 {
-	if (args != 6)
+	if (args != 5 && args != 6)
 	{
-		write(1, "Only 5 arguments are accepted\n", 30);
+		write(1, "Too many or less argument\n", 30);
 			return (false);
 	}
 	return(true);
