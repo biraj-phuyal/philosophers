@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/01/20 15:38:23 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:58:56 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_mutex
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*must_eat;
+	pthread_mutex_t	*last_meal_time;
 }	t_mutex;
 
 typedef struct	s_philo
