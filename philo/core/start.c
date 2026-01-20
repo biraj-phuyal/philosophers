@@ -6,20 +6,44 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:21:40 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/01/19 17:10:44 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/01/20 15:49:08 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-bool	init(int args, char **argv, t_philo **philo)
+bool	make_data(t_philo **philosophers, char **argv)
 {
-	
+	int	i;
+
+	i = -1;
+	while (++i < ft_atoi(argv[1]))
+		(*philosophers)[i].data = (*philosophers)->data;
 }
 
-bool	start(int args, char **argv, t_philo **philo)
+bool	init_data(int args, char **argv, t_philo **philosophers)
 {
-	if (!init(args, argv, philo))
+	(*philosophers)->data = malloc(sizeof(t_data));
+	if (!(*philosophers)->data)
+		return (false);
+	*philosophers = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	if (!philosophers)
+		return (free((*philosophers)->data), false);
+	make_data(&philosophers, argv);
+	(*philosophers)->data->philo = ft_atoi(argv[1]);
+	(*philosophers)->data->death = ft_atoi(argv[2]);
+	(*philosophers)->data->eaten = ft_atoi(argv[3]);
+	(*philosophers)->data->sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		(*philosophers)->data->must_eat = ft_atoi(argv[5]);
+	else
+		(*philosophers)->data->philo = -1;
+	return (true);
+}
+
+bool	start(int args, char **argv, t_philo **philosophers)
+{	
+	if (!init_data(args, argv, &philosophers))
 		return (false);
 	return (true);
 }
