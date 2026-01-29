@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:21:40 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/01/20 18:52:43 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/01/29 21:00:50 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,14 @@ bool	init_data(int args, char **argv, t_philo **philosophers)
 	return (true);
 }
 
-bool	mutex_initialization(t_philo **philo)
-{
-	
-}
-
 void	*eat_sleep_think(void *p)
 {
 	t_philo *philo;
     
     philo = *(t_philo **)p;
-	mutex_initialization(&philo);
+	if (philo->data->philo == 1)
+		return (NULL);
+	pthread_mutex_lock(philo->data->must_eat);
 }
 
 bool	execute(t_philo **philosophers, char **argv)
@@ -64,7 +61,12 @@ bool	execute(t_philo **philosophers, char **argv)
 		if (!pthread_create(philosophers[i]->philo, NULL, eat_sleep_think, &philosophers[i]))
 			return (false);
 	}
-
+	while (++i < ft_atoi(argv[1]))
+	{
+		if (!pthread_join(philosophers[i]->philo, NULL));
+			return (false);
+	}
+	return (true);
 }
 
 bool	start(int args, char **argv, t_philo **philosophers)

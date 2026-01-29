@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/01/20 18:58:56 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/01/29 20:54:34 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,15 @@ typedef struct	s_data
 	size_t			think;
 	size_t			death;
 	size_t			must_eat;
-}	t_data;
-
-typedef struct s_mutex
-{
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*must_eat;
 	pthread_mutex_t	*last_meal_time;
-}	t_mutex;
+}	t_data;
 
 typedef struct	s_philo
 {
 	t_data		*data;
-	t_mutex		*mutex;
 	pthread_t	*philo;
 }	t_philo;
 
