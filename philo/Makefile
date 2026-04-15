@@ -14,7 +14,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I include -I /opt/homebrew/opt/readline/includes
-SRCS = core/philosophers.c core/checks.c core/start.c
+SRCS = core/philosophers.c core/checks.c core/start.c utils/string_util.c
 
 OBJ_DIR = .obj/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
