@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/01/29 20:54:34 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/15 16:36:11 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,32 @@
 # define PHILOSOPHERS_H
 
 # include <unistd.h>
-# include <sys/time.h>
 # include <stdbool.h>
 # include <pthread.h>
 # include <stdlib.h>
 
-typedef struct	s_ms t_ms;
-
-typedef struct	s_data
+typedef struct s_data
 {
-	size_t			eaten;
-	size_t			philo;
-	size_t			sleep;
-	size_t			think;
-	size_t			death;
-	size_t			must_eat;
+	int				philo_count;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				must_eat_count;
+	pthread_mutex_t	*forks;
+} 	t_data;
+
+typedef struct s_philo
+{
+	int				id;
+	int				meals_eaten;
+	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*must_eat;
-	pthread_mutex_t	*last_meal_time;
-}	t_data;
+	t_data			*data;
+} 	t_philo;
 
-typedef struct	s_philo
-{
-	t_data		*data;
-	pthread_t	*philo;
-}	t_philo;
-
+int		ft_atoi(const char *str);
 bool	check_all_posibility(int args, char **argv);
-bool	start(int args, char **argv, t_philo **philo);
+bool	start(char **argv, t_philo **philosophers);
 
 #endif

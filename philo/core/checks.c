@@ -6,51 +6,59 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 00:04:57 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/01/19 17:05:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/15 17:11:28 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-bool	check_positiveness(int args, char **argv)
+static bool	check_arg_count(int args)
 {
-	int	i;
-	int	j;
+	static const char	usage[] = "Usage: ./philo number_of_philosophers time_to_die "
+		"time_to_eat time_to_sleep "
+		"[number_of_times_each_philosopher_must_eat]\n";
 
-	i = 0;
-	j = 1;
-	while(j < args)
+	if (args != 5 && args != 6)
 	{
-		i = 0;
-		while (argv[j][i])
-		{
-			if (argv[j][i] >= '1' && argv[j][i] <= '9')
-			{
-				write(1, "Arguments must be above 0\n", 26);
-				return (false);
-			}
-			i++;
-		}
-		j++;
+		write(2, usage, sizeof(usage) - 1);
+		return (false);
 	}
 	return (true);
 }
 
-bool	check_args(int args)
+static bool	check_positive_number(const char *str)
 {
-	if (args != 5 && args != 6)
+	int	i;
+
+	i = 0;
+	if (str[i] == '\0')
+		return (false);
+	while (str[i])
 	{
-		write(1, "Too many or less argument\n", 30);
+		if (str[i] < '0' || str[i] > '9')
 			return (false);
+		i++;
 	}
-	return(true);
+	if (ft_atoi(str) <= 0)
+		return (false);
+	return (true);
 }
 
 bool	check_all_posibility(int args, char **argv)
 {
-	if (!check_positiveness(args, argv))
+	int	i;
+
+	if (!check_arg_count(args))
 		return (false);
-	if (!check_args(args))
-		return (false);
+	i = 1;
+	while (i < args)
+	{
+		if (!check_positive_number(argv[i]))
+		{
+			write(2, "Arguments must be positive integers\n", 36);
+			return (false);
+		}
+		i++;
+	}
 	return (true);
 }

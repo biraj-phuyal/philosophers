@@ -12,21 +12,14 @@
 
 #include <philosophers.h>
 
-void create_philisophers(t_philo *philosophers, char **argv)
-{
-	pthread_create(&philosophers, NULL, NULL, argv[3]);
-	pthread_join(philosophers, NULL);
-}
-
-int main(int args, char **argv)
+int	main(int args, char **argv)
 {
 	t_philo	*philosophers;
 
-	if (!philosophers)
-		return (1);
+	philosophers = NULL;
 	if (!check_all_posibility(args, argv))
 		return (1);
-	if (!start(args, argv, &philosophers))
+	if (!start(argv, &philosophers))
 		return (1);
-
+	return (0);
 }
