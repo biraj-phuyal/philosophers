@@ -15,8 +15,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I include -I /opt/homebrew/opt/readline/includes
 SRCS = core/philosophers.c core/checks.c core/start.c core/cleanup.c \
-	core/init_data.c core/init_mutexes.c core/execute.c \
-	utils/string_util.c utils/time_util.c
+	core/init_data.c core/init_mutexes.c core/execute.c core/routine.c \
+	utils/string_util.c utils/time_util.c utils/state_util.c \
+	utils/print_util.c
 
 OBJ_DIR = .obj/
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))

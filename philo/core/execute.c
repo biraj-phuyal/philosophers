@@ -12,15 +12,6 @@
 
 #include <philosophers.h>
 
-static void	*philo_routine(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	(void)philo;
-	return (NULL);
-}
-
 static void	join_threads(t_philo *philosophers, int count)
 {
 	int	i;

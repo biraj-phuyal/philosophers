@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_util.c                                        :+:      :+:    :+:   */
+/*   print_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 17:36:25 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/17 17:36:25 by biphuyal         ###   ########.fr       */
+/*   Created: 2026/04/17 17:52:05 by biphuyal          #+#    #+#             */
+/*   Updated: 2026/04/17 17:52:05 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
+#include <stdio.h>
 
-long	get_time_ms(void)
+static long	get_timestamp(t_philo *philo)
 {
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec * 1000L) + (current_time.tv_usec / 1000L));
+	return (get_time_ms() - philo->data->start_time);
 }
 
-void	ft_usleep(long duration_ms, t_data *data)
+void	print_status(t_philo *philo, const char *status)
 {
-	long	start_time;
-
-	start_time = get_time_ms();
-	while (get_time_ms() - start_time < duration_ms)
+	pthread_mutex_lock(&philo->data->print_lock);
+	if (!simulation_stopped(philo->data))
 	{
-		if (data != NULL && simulation_stopped(data))
-			break ;
-		usleep(500);
+		printf("%ld %d %s\n", get_timestamp(philo), philo->id, status);
+		fflush(stdout);
 	}
+	pthread_mutex_unlock(&philo->data->print_lock);
 }

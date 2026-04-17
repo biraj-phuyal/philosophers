@@ -48,6 +48,9 @@ typedef struct s_philo
 int		ft_atoi(const char *str);
 long	get_time_ms(void);
 void	ft_usleep(long duration_ms, t_data *data);
+bool	simulation_stopped(t_data *data);
+void	set_simulation_stop(t_data *data, bool value);
+void	print_status(t_philo *philo, const char *status);
 bool	check_all_posibility(int args, char **argv);
 void	cleanup(t_philo *philosophers);
 bool	init_data(char **argv, t_philo **philosophers);
@@ -55,6 +58,7 @@ bool	init_forks(t_data *data);
 bool	init_philo_mutexes(t_philo *philosophers, int count);
 bool	init_shared_mutexes(t_data *data);
 void	destroy_forks(t_data *data);
+void	*philo_routine(void *arg);
 bool	execute(t_philo *philosophers);
 bool	start(char **argv, t_philo **philosophers);
 
