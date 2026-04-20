@@ -1,0 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/17 17:52:05 by biphuyal          #+#    #+#             */
+/*   Updated: 2026/04/20 09:40:00 by biphuyal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <philosophers.h>
+
+static void	get_fork_order(t_philo *philo, pthread_mutex_t **first,
+		pthread_mutex_t **second)
+{
+	if (philo->id % 2 == 0)
+	{
+		*first = philo->right_fork;
+		*second = philo->left_fork;
+		return ;
+	}
+	*first = philo->left_fork;
+	*second = philo->right_fork;
+}
+
+static void	handle_single_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	print_status(philo, "has taken a fork");
+	ft_usleep(philo->data->time_to_die, philo->data);
+	pthread_mutex_unlock(philo->left_fork);
+}
+
+static void	take_forks(t_philo *philo)
+{
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
+
+	get_fork_order(philo, &first, &second);
+	pthread_mutex_lock(first);
+	print_status(philo, "has taken a fork");
+	pthread_mutex_lock(second);
+	print_status(philo, "has taken a fork");
+}
+
+static void	eat_action(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meal_lock);
+	philo->last_meal_time = get_time_ms();
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->meal_lock);
+	print_status(philo, "is eating");
+	ft_usleep(philo->data->time_to_eat, philo->data);
+}
+
+void	*philo_routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	if (philo->data->philo_count == 1)
+		return (handle_single_philo(philo), NULL);
+	if (philo->id % 2 == 0)
+		usleep(500);
+	while (!simulation_stopped(philo->data))
+	{
+		take_forks(philo);
+		eat_action(philo);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		if (simulation_stopped(philo->data))
+			break ;
+		print_status(philo, "is sleeping");
+		ft_usleep(philo->data->time_to_sleep, philo->data);
+		print_status(philo, "is thinking");
+	}
+	return (NULL);
+}
