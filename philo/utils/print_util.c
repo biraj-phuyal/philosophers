@@ -18,6 +18,18 @@ static long	get_timestamp(t_philo *philo)
 	return (get_time_ms() - philo->data->start_time);
 }
 
+void	print_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->print_lock);
+	if (!simulation_stopped(philo->data))
+	{
+		printf("%ld %d died\n", get_timestamp(philo), philo->id);
+		fflush(stdout);
+		set_simulation_stop(philo->data, true);
+	}
+	pthread_mutex_unlock(&philo->data->print_lock);
+}
+
 void	print_status(t_philo *philo, const char *status)
 {
 	pthread_mutex_lock(&philo->data->print_lock);
