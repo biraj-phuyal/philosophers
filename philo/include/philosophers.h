@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/17 16:41:42 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/20 19:19:10 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	state_lock;
-} 	t_data;
+}	t_data;
 
 typedef struct s_philo
 {
@@ -43,7 +43,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	meal_lock;
 	t_data			*data;
-} 	t_philo;
+}	t_philo;
 
 int		ft_atoi(const char *str);
 long	get_time_ms(void);
