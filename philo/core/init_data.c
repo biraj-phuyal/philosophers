@@ -71,8 +71,7 @@ bool	init_data(char **argv, t_philo **philosophers)
 		return (false);
 	*philosophers = malloc(sizeof(t_philo) * data->philo_count);
 	if (*philosophers == NULL)
-		return (pthread_mutex_destroy(&data->print_lock), \
-			pthread_mutex_destroy(&data->state_lock), free(data), false);
+		return (init_error(*philosophers, data));
 	if (!init_forks(data))
 		return (init_error(*philosophers, data));
 	i = 0;
