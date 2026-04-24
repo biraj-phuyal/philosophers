@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 17:25:00 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/20 09:40:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:23:04 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,44 @@
 
 static void	join_threads(t_philo *philosophers, int count)
 {
-	int	index;
+	int	i;
 
-	index = 0;
-	while (index < count)
+	i = 0;
+	while (i < count)
 	{
-		pthread_join(philosophers[index].thread, NULL);
-		index++;
+		pthread_join(philosophers[i].thread, NULL);
+		i++;
 	}
 }
 
 static void	set_start_times(t_philo *philosophers)
 {
-	int		index;
+	int		i;
 	long	start_time;
 
 	start_time = get_time_ms();
 	philosophers[0].data->start_time = start_time;
-	index = 0;
-	while (index < philosophers[0].data->philo_count)
+	i = 0;
+	while (i < philosophers[0].data->philo_count)
 	{
-		philosophers[index].last_meal_time = start_time;
-		index++;
+		philosophers[i].last_meal_time = start_time;
+		i++;
 	}
 }
 
 static int	create_threads(t_philo *philosophers)
 {
 	int	count;
-	int	index;
+	int	i;
 
 	count = philosophers[0].data->philo_count;
-	index = 0;
-	while (index < count)
+	i = 0;
+	while (i < count)
 	{
-		if (pthread_create(&philosophers[index].thread, NULL,
-				philo_routine, &philosophers[index]) != 0)
-			return (set_simulation_stop(philosophers[0].data, true), index);
-		index++;
+		if (pthread_create(&philosophers[i].thread, NULL,
+				philo_routine, &philosophers[i]) != 0)
+			return (set_simulation_stop(philosophers[0].data, true), i);
+		i++;
 	}
 	return (count);
 }

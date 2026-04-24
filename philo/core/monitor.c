@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 09:40:00 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/24 18:10:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:23:04 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static bool	philo_is_full(t_philo *philo)
 static bool	all_philos_full(t_philo *philosophers)
 {
 	int	count;
-	int	index;
+	int	i;
 
 	count = philosophers[0].data->philo_count;
-	index = 0;
-	while (index < count)
+	i = 0;
+	while (i < count)
 	{
-		if (!philo_is_full(&philosophers[index]))
+		if (!philo_is_full(&philosophers[i]))
 			return (false);
-		index++;
+		i++;
 	}
 	return (count > 0);
 }
@@ -56,15 +56,15 @@ static bool	philo_died(t_philo *philo)
 static bool	check_philos(t_philo *philosophers)
 {
 	int	count;
-	int	index;
+	int	i;
 
 	count = philosophers[0].data->philo_count;
-	index = 0;
-	while (index < count)
+	i = 0;
+	while (i < count)
 	{
-		if (philo_died(&philosophers[index]))
-			return (print_death(&philosophers[index]), true);
-		index++;
+		if (philo_died(&philosophers[i]))
+			return (print_death(&philosophers[i]), true);
+		i++;
 	}
 	if (all_philos_full(philosophers))
 		return (set_simulation_stop(philosophers[0].data, true), true);

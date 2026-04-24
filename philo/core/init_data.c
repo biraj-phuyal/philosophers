@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 17:25:00 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/17 17:25:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:23:04 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ static t_data	*create_data(char **argv)
 	return (data);
 }
 
-static void	assign_philo(t_philo *philo, t_data *data, int index)
+static void	assign_philo(t_philo *philo, t_data *data, int i)
 {
-	philo->id = index + 1;
+	philo->id = i + 1;
 	philo->meals_eaten = 0;
 	philo->last_meal_time = 0;
 	philo->thread = 0;
-	philo->left_fork = &data->forks[index];
-	philo->right_fork = &data->forks[(index + 1) % data->philo_count];
+	philo->left_fork = &data->forks[i];
+	philo->right_fork = &data->forks[(i + 1) % data->philo_count];
 	philo->data = data;
 }
 
