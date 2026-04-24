@@ -100,10 +100,6 @@ Classic references people commonly use for this project:
 
 AI was used as a support tool for documentation work in this repository.
 
-- drafting and polishing this `README.md`
-- helping organize the project explanation, build instructions, and resource list
-- not used to replace understanding of thread synchronization, mutex logic, or project evaluation requirements
-
 ## Notes
 
 - The mandatory executable lives in `philo/`.
