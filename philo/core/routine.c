@@ -33,16 +33,25 @@ static void	handle_single_philo(t_philo *philo)
 	pthread_mutex_unlock(philo->left_fork);
 }
 
-static void	take_forks(t_philo *philo)
+static bool	take_forks(t_philo *philo)
 {
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;
 
 	get_fork_order(philo, &first, &second);
-	pthread_mutex_lock(first);
-	print_status(philo, "has taken a fork");
-	pthread_mutex_lock(second);
-	print_status(philo, "has taken a fork");
+	while (!simulation_stopped(philo->data))
+	{
+		pthread_mutex_lock(first);
+		if (pthread_mutex_trylock(second) == 0)
+		{
+			print_status(philo, "has taken a fork");
+			print_status(philo, "has taken a fork");
+			return (true);
+		}
+		pthread_mutex_unlock(first);
+		usleep(200);
+	}
+	return (false);
 }
 
 static void	eat_action(t_philo *philo)
@@ -55,6 +64,19 @@ static void	eat_action(t_philo *philo)
 	ft_usleep(philo->data->time_to_eat, philo->data);
 }
 
+static void	think_action(t_philo *philo)
+{
+	long	think_time;
+
+	print_status(philo, "is thinking");
+	if (philo->data->philo_count % 2 == 0)
+		return ;
+	think_time = (philo->data->time_to_die - philo->data->time_to_eat
+			- philo->data->time_to_sleep) / 2;
+	if (think_time > 0)
+		ft_usleep(think_time, philo->data);
+}
+
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
@@ -63,10 +85,11 @@ void	*philo_routine(void *arg)
 	if (philo->data->philo_count == 1)
 		return (handle_single_philo(philo), NULL);
 	if (philo->id % 2 == 0)
-		usleep(500);
+		ft_usleep(philo->data->time_to_eat / 2, philo->data);
 	while (!simulation_stopped(philo->data))
 	{
-		take_forks(philo);
+		if (!take_forks(philo))
+			break ;
 		eat_action(philo);
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
@@ -74,7 +97,7 @@ void	*philo_routine(void *arg)
 			break ;
 		print_status(philo, "is sleeping");
 		ft_usleep(philo->data->time_to_sleep, philo->data);
-		print_status(philo, "is thinking");
+		think_action(philo);
 	}
 	return (NULL);
 }
