@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 09:40:00 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/20 09:40:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:10:00 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ static bool	philo_is_full(t_philo *philo)
 	if (philo->data->must_eat_count < 0)
 		return (false);
 	pthread_mutex_lock(&philo->meal_lock);
-	is_full = philo->meals_eaten >= philo->data->must_eat_count;
+	if (philo->meals_eaten >= philo->data->must_eat_count)
+		is_full = true;
+	else
+		is_full = false;
 	pthread_mutex_unlock(&philo->meal_lock);
 	return (is_full);
 }

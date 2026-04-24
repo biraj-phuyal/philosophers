@@ -6,11 +6,25 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 17:25:00 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/17 17:25:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/24 18:08:22 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
+
+void	destroy_forks(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->philo_count)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	free(data->forks);
+	data->forks = NULL;
+}
 
 static void	destroy_meal_mutexes(t_philo *philosophers)
 {
