@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 17:52:05 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/20 09:40:00 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/25 16:53:52 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,16 @@ static void	eat_action(t_philo *philo)
 	ft_usleep(philo->data->time_to_eat, philo->data);
 }
 
+static long	get_think_time(t_philo *philo)
+{
+	long	remaining_time;
+
+	remaining_time = philo->data->time_to_die;
+	remaining_time -= philo->data->time_to_eat;
+	remaining_time -= philo->data->time_to_sleep;
+	return (remaining_time / 2);
+}
+
 static void	think_action(t_philo *philo)
 {
 	long	think_time;
@@ -71,8 +81,7 @@ static void	think_action(t_philo *philo)
 	print_status(philo, "is thinking");
 	if (philo->data->philo_count % 2 == 0)
 		return ;
-	think_time = (philo->data->time_to_die - philo->data->time_to_eat
-			- philo->data->time_to_sleep) / 2;
+	think_time = get_think_time(philo);
 	if (think_time > 0)
 		ft_usleep(think_time, philo->data);
 }
