@@ -6,7 +6,7 @@
 /*   By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:34:59 by biphuyal          #+#    #+#             */
-/*   Updated: 2026/04/20 19:19:10 by biphuyal         ###   ########.fr       */
+/*   Updated: 2026/04/25 22:34:12 by biphuyal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 int		ft_atoi(const char *str);
 long	get_time_ms(void);
 void	ft_usleep(long duration_ms, t_data *data);
+long	get_think_time(t_philo *philo);
 bool	simulation_stopped(t_data *data);
 void	set_simulation_stop(t_data *data, bool value);
 void	print_status(t_philo *philo, const char *status);
@@ -59,6 +60,7 @@ bool	init_forks(t_data *data);
 bool	init_philo_mutexes(t_philo *philosophers, int count);
 bool	init_shared_mutexes(t_data *data);
 void	destroy_forks(t_data *data);
+void	think_action(t_philo *philo);
 void	*philo_routine(void *arg);
 bool	monitor_simulation(t_philo *philosophers);
 bool	execute(t_philo *philosophers);
