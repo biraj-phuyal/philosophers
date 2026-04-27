@@ -6,7 +6,7 @@
 #    By: biphuyal <biphuyal@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/05 17:54:54 by biphuyal          #+#    #+#              #
-#    Updated: 2026/01/19 17:02:50 by biphuyal         ###   ########.fr        #
+#    Updated: 2026/04/27 17:28:03 by biphuyal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I include -I /opt/homebrew/opt/readline/includes
 SRCS = core/philosophers.c core/checks.c core/start.c core/cleanup.c \
 	core/init_data.c core/init_mutexes.c core/execute.c core/routine.c \
-	core/monitor.c \
+	core/monitor.c core/think.c \
 	utils/string_util.c utils/time_util.c utils/state_util.c \
 	utils/print_util.c
 
